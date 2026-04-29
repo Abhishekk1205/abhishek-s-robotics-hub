@@ -104,6 +104,23 @@ function FloatingDrone() {
   );
 }
 
+function AnimatedProfilePhoto() {
+  return (
+    <div className="relative mx-auto w-full max-w-[30rem] animate-float-drone">
+      <div className="absolute -inset-5 rounded-[2rem] border border-neon-cyan/25 bg-panel/40 shadow-glow backdrop-blur-2xl" />
+      <div className="absolute -inset-10 rounded-full border border-neon-violet/25 animate-orbit" />
+      <div className="relative overflow-hidden rounded-[1.75rem] border border-panel-border bg-panel shadow-panel">
+        <img src={profilePhoto} alt="Abhishek Kumar Gupta portrait" className="aspect-[4/5] w-full object-cover object-[center_18%] transition duration-700 hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-neon-cyan/10" />
+        <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-panel-border bg-background/60 p-4 backdrop-blur-xl">
+          <p className="font-display text-sm font-bold text-neon-cyan">B.Tech CSE • Web Developer</p>
+          <p className="mt-1 text-sm font-semibold text-muted-foreground">Robotics, IoT & GenAI Tools</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ParticleField() {
   const particles = useMemo(() => Array.from({ length: 36 }, (_, i) => i), []);
   return (
@@ -173,26 +190,27 @@ function Index() {
       <section id="top" className="relative grid min-h-screen items-center gap-12 px-5 pb-16 pt-24 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-16">
         <div className="absolute left-0 top-24 h-px w-full overflow-hidden bg-border"><span className="block h-full w-1/2 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-marquee-scan" /></div>
         <div className="max-w-4xl">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-panel-border bg-panel px-4 py-2 text-sm font-bold text-neon-cyan shadow-glow backdrop-blur-xl">
-            <Sparkles className="size-4" /> Robotics Lab Control Dashboard
-          </div>
           <h1 className="text-5xl font-extrabold leading-tight md:text-7xl xl:text-8xl">
             Abhishek Kumar Gupta
             <span className="block text-neon-gradient">Robotics & IoT Engineer</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-xl font-semibold text-muted-foreground md:text-2xl">Robotics Engineer | IoT Developer | Drone Innovator</p>
+          <p className="mt-5 max-w-2xl text-xl font-semibold text-muted-foreground md:text-2xl">B.Tech CSE Department | Web Developer | Robotics Engineer | IoT Developer | Drone Innovator</p>
           <div className="mt-3 h-9 overflow-hidden text-lg font-bold text-primary md:text-2xl">
             <div className="animate-[slide-up_8s_ease-in-out_infinite]">
               <p>Engineer</p><p>Innovator</p><p>Educator</p><p>Engineer</p>
             </div>
           </div>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">I am a passionate Robotics and IoT Engineer with hands-on experience in building autonomous drones, smart health systems, and delivering real-world tech workshops. I aim to bridge innovation with education and practical implementation.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">I am a passionate B.Tech CSE student, Web Developer, and Robotics & IoT Engineer with hands-on experience in autonomous drones, smart health systems, GenAI tools, and real-world tech workshops.</p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Button asChild variant="neon" size="lg"><a href="#contact"><ArrowRight /> Hire Me</a></Button>
             <Button asChild variant="glass" size="lg"><a href="/abhishek-kumar-gupta-resume.pdf" download><Download /> Download Resume</a></Button>
+            <Button asChild variant="glass" size="lg"><a href="/album" target="_blank" rel="noreferrer"><Sparkles /> Media Album</a></Button>
           </div>
         </div>
-        <FloatingDrone />
+        <div className="grid gap-8">
+          <AnimatedProfilePhoto />
+          <FloatingDrone />
+        </div>
       </section>
 
       <section id="about" className="px-5 py-16 md:px-10 lg:px-16">
