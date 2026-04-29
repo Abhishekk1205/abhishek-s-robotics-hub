@@ -66,6 +66,11 @@ const projects = [
     icon: Sparkles,
     points: ["Working with AI-assisted productivity workflows", "Exploring automation for technical documentation", "Building practical GenAI utilities for learning and development"],
   },
+  {
+    title: "Responsive Web Portfolio System",
+    icon: Cpu,
+    points: ["Modern React-based interface with animated sections", "Responsive layouts for mobile and desktop", "Interactive media album prepared for future photos and videos"],
+  },
 ];
 
 const skills = [
