@@ -15,7 +15,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { type FormEvent, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -125,7 +125,7 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
 function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  function submitForm(event: React.FormEvent<HTMLFormElement>) {
+  function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const subject = encodeURIComponent(`Portfolio collaboration from ${form.name.trim()}`);
     const body = encodeURIComponent(`${form.message.trim()}\n\nFrom: ${form.name.trim()} (${form.email.trim()})`);
