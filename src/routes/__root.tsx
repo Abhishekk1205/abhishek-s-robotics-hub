@@ -29,16 +29,21 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Abhishek Kumar Gupta | Robotics Portfolio" },
+      { name: "description", content: "Futuristic robotics and IoT engineering portfolio for Abhishek Kumar Gupta." },
+      { name: "author", content: "Abhishek Kumar Gupta" },
+      { property: "og:title", content: "Abhishek Kumar Gupta | Robotics Portfolio" },
+      { property: "og:description", content: "Explore autonomous drones, IoT health systems, workshops, skills, and contact details." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
