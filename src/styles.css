@@ -153,6 +153,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   * {
     border-color: var(--color-border);
   }
@@ -160,5 +164,87 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-body);
+    letter-spacing: 0;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 20% 10%, oklch(0.72 0.2 246 / 24%), transparent 28rem),
+      radial-gradient(circle at 80% 20%, oklch(0.72 0.22 306 / 20%), transparent 26rem),
+      linear-gradient(135deg, oklch(0.13 0.05 266), oklch(0.08 0.04 265));
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    border: 1px solid var(--color-panel-border);
+    background: linear-gradient(135deg, oklch(0.22 0.06 265 / 70%), oklch(0.15 0.045 265 / 45%));
+    box-shadow: var(--shadow-panel);
+    backdrop-filter: blur(20px);
+  }
+
+  .scan-grid {
+    background-image:
+      linear-gradient(oklch(0.84 0.16 190 / 9%) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.84 0.16 190 / 9%) 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
+
+  .text-neon-gradient {
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue), var(--neon-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .animate-float-drone {
+    animation: float-drone 7s ease-in-out infinite;
+  }
+
+  .animate-orbit {
+    animation: orbit 16s linear infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2.8s ease-in-out infinite;
+  }
+
+  .animate-marquee-scan {
+    animation: marquee-scan 8s linear infinite;
+  }
+}
+
+@keyframes float-drone {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(10deg) rotateY(-12deg); }
+  50% { transform: translate3d(0, -22px, 0) rotateX(16deg) rotateY(14deg); }
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.64; filter: drop-shadow(0 0 8px var(--neon-cyan)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 22px var(--neon-violet)); }
+}
+
+@keyframes marquee-scan {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
