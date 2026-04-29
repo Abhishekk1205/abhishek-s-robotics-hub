@@ -1,26 +1,266 @@
 import { createFileRoute } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  Award,
+  Bot,
+  Cpu,
+  Download,
+  Github,
+  GraduationCap,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  RadioTower,
+  Send,
+  Sparkles,
+} from "lucide-react";
+import { type FormEvent, useMemo, useState } from "react";
+
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+const navItems = ["About", "Education", "Experience", "Projects", "Skills", "Contact"];
+
+const education = [
+  "B.Tech CSE (2021–2025), Katihar Engineering College | CGPA: 7.24",
+  "12th ISC – 82.6% (PCM + CS)",
+  "10th ICSE – 86%",
+];
+
+const experiences = [
+  {
+    company: "CoGrad",
+    period: "Nov 2025 – Present",
+    items: ["Conduct robotics & IoT workshops", "Train students and teachers", "Implement project-based learning"],
+  },
+  {
+    company: "Techvein Pvt. Ltd.",
+    period: "May 2023 – Feb 2024",
+    items: ["ERP system integration using C++ & Java", "Data management and automation", "Excel-based data analysis"],
+  },
+  {
+    company: "India Advocacy",
+    period: "Mar 2023 – Apr 2023",
+    items: ["Data mining automation scripts", "GST and marketing data processing"],
+  },
+];
+
+const projects = [
+  {
+    title: "Autonomous Drone & Airplane",
+    icon: Bot,
+    points: ["Built using ArduPilot firmware", "GPS navigation + waypoint missions", "Flight testing & control tuning"],
+  },
+  {
+    title: "Smart Health Monitoring System",
+    icon: RadioTower,
+    points: ["Sensors for heart rate, temperature, oxygen", "Flex sensors for gesture communication", "IoT-based real-time monitoring"],
+  },
+];
+
+const skills = [
+  { label: "C/C++", value: 90 },
+  { label: "Python", value: 84 },
+  { label: "Java", value: 76 },
+  { label: "HTML/CSS/Node.js", value: 80 },
+  { label: "Arduino & IoT Systems", value: 92 },
+  { label: "Leadership & Communication", value: 88 },
+];
+
+function FloatingDrone() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="relative mx-auto aspect-square w-full max-w-[28rem] animate-float-drone [perspective:900px]">
+      <div className="absolute inset-10 rounded-full border border-neon-cyan/30 shadow-glow animate-orbit" />
+      <div className="absolute inset-20 rounded-full border border-neon-violet/35 animate-orbit [animation-direction:reverse]" />
+      <div className="absolute left-1/2 top-1/2 h-24 w-48 -translate-x-1/2 -translate-y-1/2 rounded-[42%] border border-primary/70 bg-panel shadow-glow backdrop-blur-xl">
+        <div className="absolute left-1/2 top-1/2 h-7 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/30" />
+        <div className="absolute inset-x-10 top-3 h-2 rounded-full bg-neon-cyan/70 animate-pulse-glow" />
+      </div>
+      {["left-6 top-12", "right-6 top-12", "bottom-12 left-6", "bottom-12 right-6"].map((position) => (
+        <div key={position} className={`absolute ${position} h-24 w-24 rounded-full border border-neon-cyan/55 bg-secondary/50 shadow-glow`}>
+          <div className="absolute inset-3 rounded-full border-2 border-dashed border-neon-violet/70 animate-orbit" />
+          <div className="absolute inset-9 rounded-full bg-neon-cyan/70" />
+        </div>
+      ))}
+      <Cpu className="absolute left-1/2 top-1/2 size-12 -translate-x-1/2 -translate-y-1/2 text-neon-cyan" />
     </div>
   );
 }
 
+function ParticleField() {
+  const particles = useMemo(() => Array.from({ length: 36 }, (_, i) => i), []);
+  return (
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden scan-grid" aria-hidden="true">
+      {particles.map((particle) => (
+        <span
+          key={particle}
+          className="absolute h-1 w-1 rounded-full bg-neon-cyan/70 shadow-glow animate-pulse-glow"
+          style={{
+            left: `${(particle * 29) % 100}%`,
+            top: `${(particle * 47) % 100}%`,
+            animationDelay: `${(particle % 9) * 0.25}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
+  return (
+    <div className="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <p className="text-sm font-bold uppercase tracking-[0.28em] text-neon-cyan">{eyebrow}</p>
+        <h2 className="mt-2 text-3xl font-bold text-foreground md:text-5xl">{title}</h2>
+      </div>
+      <div className="hidden h-px flex-1 bg-gradient-to-r from-primary/70 via-neon-violet/40 to-transparent md:block" />
+    </div>
+  );
+}
+
+function ContactForm() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  function submitForm(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const subject = encodeURIComponent(`Portfolio collaboration from ${form.name.trim()}`);
+    const body = encodeURIComponent(`${form.message.trim()}\n\nFrom: ${form.name.trim()} (${form.email.trim()})`);
+    window.location.href = `mailto:abhish1205@gmail.com?subject=${subject}&body=${body}`;
+  }
+
+  return (
+    <form onSubmit={submitForm} className="glass-panel rounded-xl p-5">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <input required maxLength={80} className="rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring" placeholder="Name" value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} />
+        <input required type="email" maxLength={120} className="rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring" placeholder="Email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} />
+      </div>
+      <textarea required maxLength={800} className="mt-4 min-h-36 w-full rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring" placeholder="Message" value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} />
+      <Button type="submit" variant="neon" size="lg" className="mt-4 w-full sm:w-auto">
+        <Send /> Let’s Collaborate
+      </Button>
+    </form>
+  );
+}
+
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      <ParticleField />
+      <nav className="fixed left-1/2 top-4 z-50 hidden w-[min(92vw,72rem)] -translate-x-1/2 items-center justify-between rounded-xl border border-panel-border bg-background/55 px-5 py-3 shadow-panel backdrop-blur-xl lg:flex">
+        <a href="#top" className="font-display text-sm font-bold text-neon-cyan">AKG//ROBOTICS</a>
+        <div className="flex items-center gap-5 text-sm font-semibold text-muted-foreground">
+          {navItems.map((item) => <a key={item} className="transition hover:text-primary" href={`#${item.toLowerCase()}`}>{item}</a>)}
+        </div>
+      </nav>
+
+      <section id="top" className="relative grid min-h-screen items-center gap-12 px-5 pb-16 pt-24 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-16">
+        <div className="absolute left-0 top-24 h-px w-full overflow-hidden bg-border"><span className="block h-full w-1/2 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-marquee-scan" /></div>
+        <div className="max-w-4xl">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-panel-border bg-panel px-4 py-2 text-sm font-bold text-neon-cyan shadow-glow backdrop-blur-xl">
+            <Sparkles className="size-4" /> Robotics Lab Control Dashboard
+          </div>
+          <h1 className="text-5xl font-extrabold leading-tight md:text-7xl xl:text-8xl">
+            Abhishek Kumar Gupta
+            <span className="block text-neon-gradient">Robotics & IoT Engineer</span>
+          </h1>
+          <p className="mt-5 max-w-2xl text-xl font-semibold text-muted-foreground md:text-2xl">Robotics Engineer | IoT Developer | Drone Innovator</p>
+          <div className="mt-3 h-9 overflow-hidden text-lg font-bold text-primary md:text-2xl">
+            <div className="animate-[slide-up_8s_ease-in-out_infinite]">
+              <p>Engineer</p><p>Innovator</p><p>Educator</p><p>Engineer</p>
+            </div>
+          </div>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">I am a passionate Robotics and IoT Engineer with hands-on experience in building autonomous drones, smart health systems, and delivering real-world tech workshops. I aim to bridge innovation with education and practical implementation.</p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button asChild variant="neon" size="lg"><a href="#contact"><ArrowRight /> Hire Me</a></Button>
+            <Button asChild variant="glass" size="lg"><a href="/abhishek-kumar-gupta-resume.pdf" download><Download /> Download Resume</a></Button>
+          </div>
+        </div>
+        <FloatingDrone />
+      </section>
+
+      <section id="about" className="px-5 py-16 md:px-10 lg:px-16">
+        <SectionTitle eyebrow="Mission" title="Autonomous systems, practical learning, real-world deployment." />
+        <div className="grid gap-5 md:grid-cols-3">
+          {["Autonomous drones", "Smart health IoT", "Hands-on workshops"].map((item, index) => (
+            <div key={item} className="glass-panel group rounded-xl p-6 transition duration-300 hover:-translate-y-2 hover:shadow-glow">
+              <p className="font-display text-4xl font-bold text-neon-cyan">0{index + 1}</p>
+              <h3 className="mt-5 text-2xl font-bold text-foreground">{item}</h3>
+              <p className="mt-3 text-muted-foreground">Lab-grade execution with education-first clarity and field-tested iteration.</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="education" className="px-5 py-16 md:px-10 lg:px-16">
+        <SectionTitle eyebrow="Telemetry" title="Education stream" />
+        <div className="glass-panel rounded-xl p-6">
+          {education.map((item) => <div key={item} className="flex gap-4 border-b border-border py-5 last:border-b-0"><GraduationCap className="mt-1 size-6 text-primary" /><p className="text-lg font-semibold text-panel-foreground">{item}</p></div>)}
+        </div>
+      </section>
+
+      <section id="experience" className="px-5 py-16 md:px-10 lg:px-16">
+        <SectionTitle eyebrow="Operations" title="Experience timeline" />
+        <div className="grid gap-5 lg:grid-cols-3">
+          {experiences.map((job) => (
+            <article key={job.company} className="glass-panel rounded-xl p-6 transition duration-300 hover:-translate-y-2 hover:shadow-glow">
+              <p className="text-sm font-bold uppercase tracking-[0.22em] text-neon-cyan">{job.period}</p>
+              <h3 className="mt-3 text-2xl font-bold">{job.company}</h3>
+              <ul className="mt-5 space-y-3 text-muted-foreground">{job.items.map((item) => <li key={item} className="flex gap-3"><span className="mt-2 h-2 w-2 rounded-full bg-primary shadow-glow" />{item}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="projects" className="px-5 py-16 md:px-10 lg:px-16">
+        <SectionTitle eyebrow="Builds" title="Active project modules" />
+        <div className="grid gap-6 lg:grid-cols-2">
+          {projects.map((project) => {
+            const Icon = project.icon;
+            return <article key={project.title} className="glass-panel group relative overflow-hidden rounded-xl p-7 transition duration-300 hover:-translate-y-2 hover:shadow-glow">
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon-cyan to-transparent" />
+              <Icon className="size-12 text-neon-cyan transition group-hover:scale-110" />
+              <h3 className="mt-5 text-3xl font-bold">{project.title}</h3>
+              <ul className="mt-5 space-y-3 text-muted-foreground">{project.points.map((point) => <li key={point} className="flex gap-3"><span className="mt-2 h-2 w-2 rounded-full bg-accent" />{point}</li>)}</ul>
+            </article>;
+          })}
+        </div>
+      </section>
+
+      <section className="px-5 py-16 md:px-10 lg:px-16">
+        <SectionTitle eyebrow="Awards" title="Competition highlights" />
+        <div className="grid gap-5 md:grid-cols-2">
+          {["1st Position – Drone Challenge (IIT Patna)", "3rd Position – RC Plane Competition (IIT BHU)"].map((achievement) => <div key={achievement} className="glass-panel flex items-center gap-4 rounded-xl p-6"><Award className="size-9 text-neon-violet" /><p className="text-xl font-bold">{achievement}</p></div>)}
+        </div>
+      </section>
+
+      <section id="skills" className="px-5 py-16 md:px-10 lg:px-16">
+        <SectionTitle eyebrow="Capability matrix" title="Skills calibrated for robotics labs" />
+        <div className="grid gap-4 md:grid-cols-2">
+          {skills.map((skill) => <div key={skill.label} className="glass-panel rounded-xl p-5"><div className="flex justify-between text-lg font-bold"><span>{skill.label}</span><span className="text-neon-cyan">{skill.value}%</span></div><div className="mt-3 h-3 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-gradient-to-r from-primary via-neon-cyan to-accent shadow-glow" style={{ width: `${skill.value}%` }} /></div></div>)}
+        </div>
+      </section>
+
+      <section id="contact" className="px-5 py-16 md:px-10 lg:px-16">
+        <SectionTitle eyebrow="Contact" title="Open a collaboration channel" />
+        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="glass-panel rounded-xl p-6">
+            <div className="space-y-5 text-lg font-semibold text-muted-foreground">
+              <p className="flex items-center gap-3"><Mail className="text-primary" /> abhish1205@gmail.com</p>
+              <p className="flex items-center gap-3"><Phone className="text-primary" /> +91 8235774254</p>
+              <p className="flex items-center gap-3"><MapPin className="text-primary" /> India</p>
+            </div>
+            <div className="mt-7 flex gap-3">
+              <Button asChild variant="glass" size="icon"><a aria-label="GitHub" href="https://github.com/Abhishekk1205" target="_blank" rel="noreferrer"><Github /></a></Button>
+              <Button asChild variant="glass" size="icon"><a aria-label="LinkedIn" href="https://www.linkedin.com/in/abhishek-kumar-gupta" target="_blank" rel="noreferrer"><Linkedin /></a></Button>
+            </div>
+          </div>
+          <ContactForm />
+        </div>
+      </section>
+    </main>
+  );
 }
