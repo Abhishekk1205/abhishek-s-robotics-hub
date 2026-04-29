@@ -264,14 +264,14 @@ function Index() {
       <section className="px-5 py-16 md:px-10 lg:px-16">
         <SectionTitle eyebrow="Awards" title="Competition highlights" />
         <div className="grid gap-5 md:grid-cols-2">
-          {["1st Position – Drone Challenge (IIT Patna)", "3rd Position – RC Plane Competition (IIT BHU)"].map((achievement) => <div key={achievement} className="glass-panel flex items-center gap-4 rounded-xl p-6"><Award className="size-9 text-neon-violet" /><p className="text-xl font-bold">{achievement}</p></div>)}
+          {achievements.map((achievement) => <div key={achievement} className="glass-panel flex items-center gap-4 rounded-xl p-6"><Award className="size-9 text-neon-violet" /><p className="text-xl font-bold">{achievement}</p></div>)}
         </div>
       </section>
 
       <section id="skills" className="px-5 py-16 md:px-10 lg:px-16">
         <SectionTitle eyebrow="Capability matrix" title="Skills calibrated for robotics labs" />
         <div className="grid gap-4 md:grid-cols-2">
-          {skills.map((skill) => <div key={skill.label} className="glass-panel rounded-xl p-5"><div className="flex justify-between text-lg font-bold"><span>{skill.label}</span><span className="text-neon-cyan">{skill.value}%</span></div><div className="mt-3 h-3 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-gradient-to-r from-primary via-neon-cyan to-accent shadow-glow" style={{ width: `${skill.value}%` }} /></div></div>)}
+          {skills.map((skill) => <div key={skill.label} className="glass-panel rounded-xl p-5 transition duration-300 hover:-translate-y-1 hover:shadow-glow"><div className="flex items-start justify-between gap-4"><div><h3 className="text-xl font-bold text-foreground">{skill.label}</h3><p className="mt-1 font-semibold text-muted-foreground">{skill.focus}</p></div><Cpu className="size-6 text-neon-cyan" /></div></div>)}
         </div>
       </section>
 
