@@ -120,7 +120,7 @@ function AnimatedProfilePhoto() {
         <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-panel-border bg-background/60 p-4 backdrop-blur-xl">
           <p className="font-display text-lg font-bold text-foreground">Abhishek Kumar Gupta</p>
           <p className="mt-1 font-display text-sm font-bold text-neon-cyan">B.Tech CSE</p>
-          <p className="mt-1 text-sm font-semibold text-muted-foreground">Robotics, IoT & GenAI Tools</p>
+          <p className="mt-1 text-sm font-semibold text-muted-foreground">Robotics, IoT, Web Dev & GenAI Tools</p>
         </div>
       </div>
     </div>
