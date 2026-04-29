@@ -18,6 +18,7 @@ import {
 import { type FormEvent, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import profilePhoto from "@/assets/abhishek-cse.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -60,15 +61,27 @@ const projects = [
     icon: RadioTower,
     points: ["Sensors for heart rate, temperature, oxygen", "Flex sensors for gesture communication", "IoT-based real-time monitoring"],
   },
+  {
+    title: "GenAI Engineering Tools",
+    icon: Sparkles,
+    points: ["Working with AI-assisted productivity workflows", "Exploring automation for technical documentation", "Building practical GenAI utilities for learning and development"],
+  },
 ];
 
 const skills = [
-  { label: "C/C++", value: 90 },
-  { label: "Python", value: 84 },
-  { label: "Java", value: 76 },
-  { label: "HTML/CSS/Node.js", value: 80 },
-  { label: "Arduino & IoT Systems", value: 92 },
-  { label: "Leadership & Communication", value: 88 },
+  { label: "C/C++", focus: "Embedded logic" },
+  { label: "Python", focus: "Automation & GenAI tools" },
+  { label: "Java", focus: "Application fundamentals" },
+  { label: "HTML/CSS/Node.js", focus: "Web development" },
+  { label: "Arduino & IoT Systems", focus: "Sensor networks" },
+  { label: "Leadership & Communication", focus: "Workshops & mentoring" },
+];
+
+const achievements = [
+  "Drone Challenge — IIT Patna",
+  "RC Plane Competition — IIT BHU",
+  "IoT Hackathon — smart automation prototype",
+  "Robotics & IoT workshop project showcase",
 ];
 
 function FloatingDrone() {
