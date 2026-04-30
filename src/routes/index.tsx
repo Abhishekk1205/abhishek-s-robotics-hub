@@ -501,7 +501,7 @@ function Index() {
               <Button asChild variant="glass" size="icon">
                 <a
                   aria-label="LinkedIn"
-                  href="https://www.linkedin.com/in/abhishek-kumar-gupta"
+                  href="https://www.linkedin.com/in/abhishekkumar1205dev"
                   target="_blank"
                   rel="noreferrer"
                 >
