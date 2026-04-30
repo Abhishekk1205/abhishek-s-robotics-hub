@@ -502,6 +502,14 @@ function Index() {
                 <a
                   aria-label="LinkedIn"
                   href="https://www.linkedin.com/in/abhishekkumar1205dev"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    window.open(
+                      "https://www.linkedin.com/in/abhishekkumar1205dev",
+                      "_blank",
+                      "noopener,noreferrer",
+                    );
+                  }}
                   target="_blank"
                   rel="noreferrer"
                 >
