@@ -483,7 +483,8 @@ function Index() {
                 <Phone className="text-primary" /> +91 8235774254
               </p>
               <p className="flex items-center gap-3">
-                <MapPin className="text-primary" /> India
+                <MapPin className="text-primary" /> A. M. Das Lane, Brahmpura Muzaffarpur, Bihar.
+                Pincode: 842003
               </p>
             </div>
             <div className="mt-7 flex gap-3">
