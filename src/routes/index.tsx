@@ -501,17 +501,9 @@ function Index() {
               <Button asChild variant="glass" size="icon">
                 <a
                   aria-label="LinkedIn"
-                  href="https://www.linkedin.com/in/abhishekkumar1205dev"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    window.open(
-                      "https://www.linkedin.com/in/abhishekkumar1205dev",
-                      "_blank",
-                      "noopener,noreferrer",
-                    );
-                  }}
-                  target="_blank"
-                  rel="noreferrer"
+                  href="https://www.linkedin.com/in/abhishekkumar1205dev/"
+                  target="_top"
+                  rel="noopener noreferrer"
                 >
                   <Linkedin />
                 </a>
