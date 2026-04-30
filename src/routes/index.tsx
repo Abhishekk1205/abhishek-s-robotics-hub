@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import emailjs from "@emailjs/browser";
 import {
   ArrowRight,
   Award,
@@ -160,23 +161,49 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
 
 function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  function submitForm(event: FormEvent<HTMLFormElement>) {
+  async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const subject = encodeURIComponent(`Portfolio collaboration from ${form.name.trim()}`);
-    const body = encodeURIComponent(`${form.message.trim()}\n\nFrom: ${form.name.trim()} (${form.email.trim()})`);
-    window.location.href = `mailto:abhish1205@gmail.com?subject=${subject}&body=${body}`;
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+
+    if (!name || !email || !message) return;
+
+    setStatus("sending");
+
+    try {
+      await emailjs.send(
+        "service_zz646v8",
+        "template_l7qcm5e",
+        {
+          from_name: name,
+          from_email: email,
+          reply_to: email,
+          message,
+          to_name: "Abhishek Kumar Gupta",
+        },
+        { publicKey: "HjMuNiHplvVCDckg2" },
+      );
+      setForm({ name: "", email: "", message: "" });
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
     <form onSubmit={submitForm} className="glass-panel rounded-xl p-5">
       <div className="grid gap-4 sm:grid-cols-2">
-        <input required maxLength={80} className="rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring" placeholder="Name" value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} />
-        <input required type="email" maxLength={120} className="rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring" placeholder="Email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} />
+        <input required maxLength={80} disabled={status === "sending"} className="rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-70" placeholder="Name" value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} />
+        <input required type="email" maxLength={120} disabled={status === "sending"} className="rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-70" placeholder="Email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} />
       </div>
-      <textarea required maxLength={800} className="mt-4 min-h-36 w-full rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring" placeholder="Message" value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} />
-      <Button type="submit" variant="neon" size="lg" className="mt-4 w-full sm:w-auto">
-        <Send /> Let’s Collaborate
+      <textarea required maxLength={800} disabled={status === "sending"} className="mt-4 min-h-36 w-full rounded-lg border border-input bg-muted/50 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-70" placeholder="Message" value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} />
+      {status === "sent" && <p className="mt-3 text-sm font-semibold text-neon-cyan">Message sent successfully.</p>}
+      {status === "error" && <p className="mt-3 text-sm font-semibold text-destructive">Message could not be sent. Please try again.</p>}
+      <Button type="submit" variant="neon" size="lg" disabled={status === "sending"} className="mt-4 w-full sm:w-auto">
+        <Send /> {status === "sending" ? "Sending..." : "Let’s Collaborate"}
       </Button>
     </form>
   );
